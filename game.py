@@ -1,8 +1,19 @@
 #main file
 # this function provides  of playing game
+import string
 def main():
     print("Peek_a_Boo")
 
+def print_grid(grid,size):
+    print('   ' + '  '.join(string.ascii_uppercase[:size]))
+    for i in range(grid.size):
+        print(i, end="  ")
+        for j in range(grid.size):
+            if grid.is_revealed(i, j):
+                print(grid.get_value(i, j), end="  ")
+            else:
+                print('X', end="  ")
+        print()
 def get_menu_choice():
     print('\nMenu:')
     print('1. Guess a pair')
