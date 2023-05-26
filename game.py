@@ -2,7 +2,8 @@
 # this function provides  of playing game
 import string
 def main():
-    print("Peek_a_Boo")
+    size = int(input("Enter the size of the grid (2, 4, or 6): "))
+    assert size in [2, 4, 6], "Invalid grid size"
 
 def print_grid(grid,size):
     print('   ' + '  '.join(string.ascii_uppercase[:size]))
