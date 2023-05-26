@@ -23,5 +23,15 @@ def get_menu_choice():
     print('5. Quit')
     return input('Enter your choice: ')
 
+def get_cell_coordinates(size):
+    while True:
+        cell = input("Enter cell coordinates (e.g., a0): ")
+        col = ord(cell[0].lower()) - ord('a')
+        row = int(cell[1])
+        if 0 <= row < size and 0 <= col < size:
+            return row, col
+        else:
+            print("Invalid cell coordinates. Try again.")
+
 if __name__ == "__main__":
     main()
