@@ -27,5 +27,8 @@ class Grid:
     def get_value(self, row, col):
         return self.grid[row][col]
 
+    def is_all_covered(self):
+        return not all(not cover for row in self.cover for cover in row)
+
     def is_all_revealed(self):
         return all(not hidden for row in self.hidden for hidden in row)
