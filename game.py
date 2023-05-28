@@ -1,5 +1,6 @@
 #main file
 # this function provides  of playing game
+from os import system
 import string
 import time
 
@@ -27,7 +28,7 @@ def main():
                 print_grid(grid, size)
                 if grid.get_value(row1, col1) != grid.get_value(row2, col2):
                     wait()
-                    # os.system("clear")
+                    clear()
                     grid.hide(row1, col1)
                     grid.hide(row2, col2)
                 guesses += 1
@@ -87,6 +88,13 @@ def title():
 
 def wait():
     time.sleep(2)
+
+
+def clear():
+    system("cls")
+    # check and make call for specific operating system
+    #_ = call('clear' if os.name == 'posix' else 'cls')
+
 def get_cell_coordinates(size):
     while True:
         cell = input("Enter cell coordinates (e.g., a0): ")
