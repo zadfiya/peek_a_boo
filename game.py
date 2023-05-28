@@ -52,14 +52,18 @@ def main(argv):
                 flag = False
                 break
 
-            if grid.is_all_covered() and guesses != 0:
-                minimum_possible_guesses = (size * size) // 2
-                score = (minimum_possible_guesses / guesses) * 100
-                print(f"Oh Happy Day. You've won!! Your score is: {score}")
-            elif guesses == 0:
-                continue
-            else:
-                print("You cheated - Loser!. Your score is 0!")
+        if grid.is_all_covered() and guesses != 0:
+            minimum_possible_guesses = (size * size) // 2
+            score = (minimum_possible_guesses / guesses) * 100
+            print(f"Oh Happy Day. You've won!! Your score is: {0:.2f}".format(score))
+            flag = False
+        elif guesses == 0:
+            continue
+        else:
+            print("You cheated - Loser!. Your score is 0!")
+            flag = False
+
+
 
 
 
@@ -81,7 +85,11 @@ def get_menu_choice():
     print('3. Reveal the entire grid')
     print('4. Start a new game')
     print('5. Quit')
-    return input('Enter your choice: ')
+    a = input('Select: ')
+    if a in ["1", "2", "3", "4", "5"]:
+        return int(a)
+    else:
+        return get_menu_choice()
 
 def title():
     print("--------------------")
@@ -100,12 +108,20 @@ def clear():
 def get_cell_coordinates(size):
     while True:
         cell = input("Enter cell coordinates (e.g., a0): ")
-        col = ord(cell[0].lower()) - ord('a')
-        row = int(cell[1])
-        if 0 <= row < size and 0 <= col < size:
-            return row, col
-        else:
-            print("Invalid cell coordinates. Try again.")
+        if len(list(cell)) == 2 and list(cell)[1].isdigit() :
+            col = ord(cell[0].lower()) - ord('a')
+            row = int(cell[1])
+            if 0 <= row < size and 0 <= col < size:
+                return row, col
+            elif not (0 <= row < size) and 0 <= col < size:
+                print(f"Input Error: row entry is out of range for this grid. Please try again between 0 to {size}.")
+            elif not(0 <= col < size):
+                print(f"Input Error: column entry is out of range for this grid. Please try again between A to {chr(size + ord('a')-1).upper()}.")
+            else:
+                print("Input Error: Both row and column entry out of range for this grid. Please try again.")
+        else :
+            print("Input Error: Invalid Input, Please try again.")
+
 
 if __name__ == "__main__":
     main(argv[1])
