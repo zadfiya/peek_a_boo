@@ -34,7 +34,11 @@ def main():
             grid.uncover(row, col)
             guesses += 2
         elif action == 3:
+            for i in range(size):
+                for j in range(size):
+                    grid.reveal(i, j)
             print_grid(grid, size)
+            break
         elif action == 4:  # start new game logic
             grid = Grid(size)
             guesses = 0
