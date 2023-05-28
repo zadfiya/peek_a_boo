@@ -19,6 +19,9 @@ class Grid:
     def hide(self, row, col):
         self.hidden[row][col] = True
 
+    def uncover(self, row, col):
+        self.cover[row][col] = False
+
     def reveal(self, row, col):
         self.hidden[row][col] = False
 

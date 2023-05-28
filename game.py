@@ -1,15 +1,21 @@
-#main file
+# main file
 # this function provides  of playing game
 from os import system
-from sys import argv
+from sys import argv, platform
 import string
 import time
 
 from grid import Grid
+
+
+def wait():
+    time.sleep(2)
+
+
 def main(argv):
     # size = int(input("Enter the size of the grid (2, 4, or 6): "))
     size = int(argv)
-    assert size in [2, 4, 6], "Invalid grid size" # test case for validation of grid size
+    assert size in [2, 4, 6], "Invalid grid size"  # test case for validation of grid size
 
     flag = True
 
@@ -25,7 +31,7 @@ def main(argv):
             if action == 1:
                 row1, col1 = get_cell_coordinates(size)
                 row2, col2 = get_cell_coordinates(size)
-                while row1==row2 and col1==col2 :
+                while row1 == row2 and col1 == col2:
                     print("Please enter different coordinates.")
                     row2, col2 = get_cell_coordinates(size)
                 grid.reveal(row1, col1)
@@ -66,62 +72,66 @@ def main(argv):
             print("You cheated - Loser!. Your score is 0!")
 
 
-
-
-
-def print_grid(grid,size):
-    print('   ' + '  '.join(string.ascii_uppercase[:size]))
-    for i in range(grid.size):
-        print(i, end="  ")
-        for j in range(grid.size):
-            if grid.is_revealed(i, j):
-                print(grid.get_value(i, j), end="  ")
-            else:
-                print('X', end="  ")
-        print()
-
 def get_menu_choice():
     print('\nMenu:')
-    print('1. Guess a pair')
-    print('2. Manually uncover a cell')
-    print('3. Reveal the entire grid')
-    print('4. Start a new game')
-    print('5. Quit')
+    print('1. Let me select two elements')
+    print('2. Uncover one element for me')
+    print('3. I give up - reveal the grid')
+    print('4. New game')
+    print('5. Exit\n')
     a = input('Select: ')
     if a in ["1", "2", "3", "4", "5"]:
         return int(a)
     else:
         return get_menu_choice()
 
+
+def print_grid(grid, size):
+    horizona_line = '  '.join(['[' + chr(i + 65) + ']' for i in range(size)])
+    print('    ' + horizona_line)
+    for i in range(grid.size):
+        print("[",end="")
+        print(i, end="]   ")
+        for j in range(grid.size):
+            if grid.is_revealed(i, j):
+                print(grid.get_value(i, j), end="   ")
+            else:
+                print('X', end="   ")
+        print()
+
+
 def title():
-    print("--------------------")
+    print("\n--------------------")
     print("|    PEEK-A-BOO    |")
     print("--------------------\n")
 
-def wait():
-    time.sleep(2)
-
 
 def clear():
-    system("clear")
+    if platform.startswith("win32"):
+        system("cls")
+    else:
+        system("clear")
+    # sys.platform.startswith()
     # check and make call for specific operating system
-    #_ = call('clear' if os.name == 'posix' else 'cls')
+    # _ = call('clear' if os.name == 'posix' else 'cls')
+
 
 def get_cell_coordinates(size):
     while True:
         cell = input("Enter cell coordinates (e.g., a0): ")
-        if len(list(cell)) == 2 and list(cell)[1].isdigit() :
+        if len(list(cell)) == 2 and list(cell)[1].isdigit():
             col = ord(cell[0].lower()) - ord('a')
             row = int(cell[1])
             if 0 <= row < size and 0 <= col < size:
                 return row, col
             elif not (0 <= row < size) and 0 <= col < size:
                 print(f"Input Error: row entry is out of range for this grid. Please try again between 0 to {size}.")
-            elif not(0 <= col < size):
-                print(f"Input Error: column entry is out of range for this grid. Please try again between A to {chr(size + ord('a')-1).upper()}.")
+            elif not (0 <= col < size):
+                print(
+                    f"Input Error: column entry is out of range for this grid. Please try again between A to {chr(size + ord('a') - 1).upper()}.")
             else:
                 print("Input Error: Both row and column entry out of range for this grid. Please try again.")
-        else :
+        else:
             print("Input Error: Invalid Input, Please try again.")
 
 
