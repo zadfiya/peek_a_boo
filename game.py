@@ -1,12 +1,14 @@
 #main file
 # this function provides  of playing game
 from os import system
+from sys import argv
 import string
 import time
 
 from grid import Grid
-def main():
-    size = int(input("Enter the size of the grid (2, 4, or 6): "))
+def main(argv):
+    # size = int(input("Enter the size of the grid (2, 4, or 6): "))
+    size = int(argv)
     assert size in [2, 4, 6], "Invalid grid size" # test case for validation of grid size
 
     grid = Grid(size)
@@ -106,4 +108,4 @@ def get_cell_coordinates(size):
             print("Invalid cell coordinates. Try again.")
 
 if __name__ == "__main__":
-    main()
+    main(argv[1])
