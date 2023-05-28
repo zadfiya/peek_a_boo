@@ -30,6 +30,9 @@ def main():
             guesses += 1
         elif action == 2:
             row, col = get_cell_coordinates(size)
+            grid.reveal(row, col)
+            grid.uncover(row, col)
+            guesses += 2
         elif action == 3:
             print_grid(grid, size)
         elif action == 4:  # start new game logic
