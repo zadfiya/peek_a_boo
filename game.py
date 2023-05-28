@@ -43,7 +43,7 @@ def main():
             grid = Grid(size)
             guesses = 0
         elif action == 5:
-            print("option 5 working")
+            break
 
 
 
