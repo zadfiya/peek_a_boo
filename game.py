@@ -1,6 +1,8 @@
 #main file
 # this function provides  of playing game
 import string
+import time
+
 from grid import Grid
 def main():
     size = int(input("Enter the size of the grid (2, 4, or 6): "))
@@ -9,22 +11,34 @@ def main():
     grid = Grid(size)
     guesses = 0
 
-    print_grid(grid, size)
-    action = int(get_menu_choice())
-    assert action in range(1, 6), "Invalid action" # test case for validation of menu selection
-
-    if action == 1:
-        row1, col1 = get_cell_coordinates(size)
-        row2, col2 = get_cell_coordinates(size)
-    elif action == 2:
-        row, col = get_cell_coordinates(size)
-    elif action == 3:
+    while not grid.is_all_revealed():
         print_grid(grid, size)
-    elif action == 4: # start new game logic
-        grid = Grid(size)
-        guesses = 0
-    elif action == 5:
-        print("option 5 working")
+        action = int(get_menu_choice())
+        assert action in range(1, 6), "Invalid action"  # test case for validation of menu selection
+
+        if action == 1:
+            row1, col1 = get_cell_coordinates(size)
+            row2, col2 = get_cell_coordinates(size)
+            grid.reveal(row1, col1)
+            grid.reveal(row2, col2)
+            print_grid(grid, size)
+            if grid.get_value(row1, col1) != grid.get_value(row2, col2):
+                time.sleep(2)
+                # os.system("clear")
+                grid.hide(row1, col1)
+                grid.hide(row2, col2)
+            guesses += 1
+        elif action == 2:
+            row, col = get_cell_coordinates(size)
+        elif action == 3:
+            print_grid(grid, size)
+        elif action == 4:  # start new game logic
+            grid = Grid(size)
+            guesses = 0
+        elif action == 5:
+            print("option 5 working")
+
+
 
 def print_grid(grid,size):
     print('   ' + '  '.join(string.ascii_uppercase[:size]))
