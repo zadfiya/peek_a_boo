@@ -13,6 +13,7 @@ class Grid:
         random.shuffle(pairs)
         grid = [pairs[i*self.size:(i+1)*self.size] for i in range(self.size)]
         self.hidden = [[True]*self.size for _ in range(self.size)] # logic for hiding the element
+        self.cover = [[True] * self.size for _ in range(self.size)]
         return grid
 
     def hide(self, row, col):
