@@ -10,49 +10,52 @@ def main():
 
     grid = Grid(size)
     guesses = 0
+    flag = True
 
-    while not grid.is_all_revealed():
-        print_grid(grid, size)
-        action = int(get_menu_choice())
-        assert action in range(1, 6), "Invalid action"  # test case for validation of menu selection
-
-        if action == 1:
-            row1, col1 = get_cell_coordinates(size)
-            row2, col2 = get_cell_coordinates(size)
-            grid.reveal(row1, col1)
-            grid.reveal(row2, col2)
+    while flag:
+        while not grid.is_all_revealed():
             print_grid(grid, size)
-            if grid.get_value(row1, col1) != grid.get_value(row2, col2):
-                time.sleep(2)
-                # os.system("clear")
-                grid.hide(row1, col1)
-                grid.hide(row2, col2)
-            guesses += 1
-        elif action == 2:
-            row, col = get_cell_coordinates(size)
-            grid.reveal(row, col)
-            grid.uncover(row, col)
-            guesses += 2
-        elif action == 3:
-            for i in range(size):
-                for j in range(size):
-                    grid.reveal(i, j)
-            print_grid(grid, size)
-            break
-        elif action == 4:  # start new game logic
-            grid = Grid(size)
-            guesses = 0
-        elif action == 5:
-            break
+            action = int(get_menu_choice())
+            assert action in range(1, 6), "Invalid action"  # test case for validation of menu selection
 
-        if grid.is_all_covered() and guesses != 0:
-            minimum_possible_guesses = (size * size) // 2
-            score = (minimum_possible_guesses / guesses) * 100
-            print(f"Oh Happy Day. You've won!! Your score is: {score}")
-        elif guesses == 0:
-            continue
-        else:
-            print("You cheated - Loser!. Your score is 0!")
+            if action == 1:
+                row1, col1 = get_cell_coordinates(size)
+                row2, col2 = get_cell_coordinates(size)
+                grid.reveal(row1, col1)
+                grid.reveal(row2, col2)
+                print_grid(grid, size)
+                if grid.get_value(row1, col1) != grid.get_value(row2, col2):
+                    time.sleep(2)
+                    # os.system("clear")
+                    grid.hide(row1, col1)
+                    grid.hide(row2, col2)
+                guesses += 1
+            elif action == 2:
+                row, col = get_cell_coordinates(size)
+                grid.reveal(row, col)
+                grid.uncover(row, col)
+                guesses += 2
+            elif action == 3:
+                for i in range(size):
+                    for j in range(size):
+                        grid.reveal(i, j)
+                print_grid(grid, size)
+                break
+            elif action == 4:  # start new game logic
+                grid = Grid(size)
+                guesses = 0
+            elif action == 5:
+                flag = False
+                break
+
+            if grid.is_all_covered() and guesses != 0:
+                minimum_possible_guesses = (size * size) // 2
+                score = (minimum_possible_guesses / guesses) * 100
+                print(f"Oh Happy Day. You've won!! Your score is: {score}")
+            elif guesses == 0:
+                continue
+            else:
+                print("You cheated - Loser!. Your score is 0!")
 
 
 
@@ -66,6 +69,7 @@ def print_grid(grid,size):
             else:
                 print('X', end="  ")
         print()
+
 def get_menu_choice():
     print('\nMenu:')
     print('1. Guess a pair')
