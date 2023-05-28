@@ -14,6 +14,7 @@ def main():
 
     while flag:
         while not grid.is_all_revealed():
+            title()
             print_grid(grid, size)
             action = int(get_menu_choice())
             assert action in range(1, 6), "Invalid action"  # test case for validation of menu selection
@@ -79,6 +80,10 @@ def get_menu_choice():
     print('5. Quit')
     return input('Enter your choice: ')
 
+def title():
+    print("--------------------")
+    print("|    PEEK-A-BOO    |")
+    print("--------------------\n")
 def get_cell_coordinates(size):
     while True:
         cell = input("Enter cell coordinates (e.g., a0): ")
