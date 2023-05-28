@@ -11,11 +11,11 @@ def main(argv):
     size = int(argv)
     assert size in [2, 4, 6], "Invalid grid size" # test case for validation of grid size
 
-    grid = Grid(size)
-    guesses = 0
     flag = True
 
     while flag:
+        grid = Grid(size)
+        guesses = 0
         while not grid.is_all_revealed():
             title()
             print_grid(grid, size)
@@ -25,6 +25,9 @@ def main(argv):
             if action == 1:
                 row1, col1 = get_cell_coordinates(size)
                 row2, col2 = get_cell_coordinates(size)
+                while row1==row2 and col1==col2 :
+                    print("Please enter different coordinates.")
+                    row2, col2 = get_cell_coordinates(size)
                 grid.reveal(row1, col1)
                 grid.reveal(row2, col2)
                 print_grid(grid, size)
@@ -55,13 +58,12 @@ def main(argv):
         if grid.is_all_covered() and guesses != 0:
             minimum_possible_guesses = (size * size) // 2
             score = (minimum_possible_guesses / guesses) * 100
-            print(f"Oh Happy Day. You've won!! Your score is: {0:.2f}".format(score))
-            flag = False
+            print(f"Oh Happy Day. You've won!! Your score is: ", end="")
+            print("{0:.2f}".format(score))
         elif guesses == 0:
             continue
         else:
             print("You cheated - Loser!. Your score is 0!")
-            flag = False
 
 
 
@@ -101,7 +103,7 @@ def wait():
 
 
 def clear():
-    system("cls")
+    system("clear")
     # check and make call for specific operating system
     #_ = call('clear' if os.name == 'posix' else 'cls')
 
