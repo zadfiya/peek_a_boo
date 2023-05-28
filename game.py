@@ -45,9 +45,14 @@ def main():
         elif action == 5:
             break
 
-        minimum_possible_guesses = (size * size) // 2
-        score = (minimum_possible_guesses / guesses) * 100
-        print(f"Oh Happy Day. You've won!! Your score is: {score}")
+        if grid.is_all_covered() and guesses != 0:
+            minimum_possible_guesses = (size * size) // 2
+            score = (minimum_possible_guesses / guesses) * 100
+            print(f"Oh Happy Day. You've won!! Your score is: {score}")
+        elif guesses == 0:
+            continue
+        else:
+            print("You cheated - Loser!. Your score is 0!")
 
 
 
