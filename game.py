@@ -26,7 +26,7 @@ def main():
                 grid.reveal(row2, col2)
                 print_grid(grid, size)
                 if grid.get_value(row1, col1) != grid.get_value(row2, col2):
-                    time.sleep(2)
+                    wait()
                     # os.system("clear")
                     grid.hide(row1, col1)
                     grid.hide(row2, col2)
@@ -84,6 +84,9 @@ def title():
     print("--------------------")
     print("|    PEEK-A-BOO    |")
     print("--------------------\n")
+
+def wait():
+    time.sleep(2)
 def get_cell_coordinates(size):
     while True:
         cell = input("Enter cell coordinates (e.g., a0): ")
